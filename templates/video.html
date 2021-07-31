@@ -1,0 +1,144 @@
+<script>
+    prevDataLength = 0;
+    rowCount = 1;
+    faceResult = '';
+    gaitResult = '';
+
+    window.onload = function () {
+        document.getElementById('gaitResult').innerHTML = 'Still Waiting for the result of Gait Recognition Server....';
+    };
+
+    if (!!window.EventSource) {
+        if (typeof (EventSource) !== "undefined") {
+            console.log("hi");
+            var source = new EventSource('/current_identification/');
+            var source1 = new EventSource('/all_count/');
+            var source2 = new EventSource('/gait_reply');
+            source.onmessage = function (e) {
+                // alert(e);
+                // console.log(e.data);
+                document.getElementById('currentName').innerHTML = `Current Identification is ${e.data}`;
+                // $("#currentName").text(`Current Identification is ${e.data}`);
+            }
+            source1.onmessage = function (e) {
+                $("tbody").empty();
+                // alert(e);
+                // console.log(e.data);
+                data = JSON.parse(e.data);
+                // $("#allCount").text(JSON.stringify(data));
+
+                keys = Object.keys(data);
+                values = Object.values(data);
+
+                totalScore = values.reduce(getSum);
+
+                maxInd = values.indexOf(Math.max(...values));
+                recName = keys[maxInd];
+                faceResult = recName;
+                document.getElementById('allCount').innerHTML = `${recName}`;
+                // $("#allCount").text(`Recognized Name is ${recName}`);
+                // console.log(keys);
+                Table = document.getElementById('table');
+                currDataLength = keys.length;
+                if (prevDataLength != currDataLength) {
+                    lengthDiff = currDataLength - prevDataLength;
+
+                    for (i = 0; i < lengthDiff; i++) {
+                        row = Table.insertRow(-1);
+                        console.log(keys);
+                        row.insertCell(0).innerHTML = rowCount;
+                        row.insertCell(1).innerHTML = keys[currDataLength - lengthDiff + i];
+                        row.insertCell(2).innerHTML = data[keys[currDataLength - lengthDiff + i]];
+                        row.insertCell(3).innerHTML = (data[keys[currDataLength - lengthDiff + i]] * 100 / totalScore).toFixed(2);
+                        rowCount++;
+                    }
+                } else {
+                    row = document.getElementsByTagName('tr');
+                    for (j = 0; j < currDataLength; j++) {
+                        row[j + 1].cells[1].innerHTML = keys[j];
+                        row[j + 1].cells[2].innerHTML = data[keys[j]];
+                        row[j + 1].cells[3].innerHTML = (data[keys[j]] * 100 / totalScore).toFixed(2);
+                    }
+                }
+                prevDataLength = currDataLength;
+            }
+            source2.onmessage = function(e) {
+                if(e.data == '') {
+                    document.getElementById('gaitResult').innerHTML = 'Still Waiting for the result of Gait Recognition Server....';
+                }else {
+                    document.getElementById('gaitResult').innerHTML = `Person is identified as ${e.data}`;
+                    document.getElementById('spinner3').style.display = 'none';
+                    gaitResult = e.data;
+
+                    if(gaitResult == faceResult) {
+                        document.getElementById('finalDecision').innerHTML = `Final decision is : person recognized as ${faceResult}`;
+                        document.getElementById('spinner4').style.display = 'none';
+                    } else {
+                        document.getElementById('finalDecision').innerHTML = `This person is Unknown`;
+                        document.getElementById('spinner4').style.display = 'none';
+                    }
+                }
+            }
+        } else {
+            console.log("No server sent support")
+        }
+    };
+
+    function updateCurrentName() {
+        name = url_for('current_identification');
+        console.log(name);
+        document.getElementById('currentName').innerHTML = name;
+    };
+
+    function getSum(total, num) {
+        return total + num;
+    };
+</script>
+{% extends 'layout.html' %}
+{% block body %}
+<div class="row">
+    <div class="col-7 p-0">
+        <div class="border border-warning mb-2" style="padding: 10px 10px 10px 10px;">
+            <div >
+                <img height="360" width="640" src="{{ url_for('video_feed') }}">
+            </div>
+        </div>
+        <div class="border border-warning" style="padding: 10px 10px 10px 10px;">
+            <h5 class="text-center p-1 mb-2 bg-primary text-white">Combined Result</h5>
+            <strong id="finalDecision" >Please wait for final decision....</strong>
+            <div class="d-flex justify-content-center">
+                <div id="spinner4" class="spinner-border" role="status" aria-hidden="true" style="display: block;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="table-responsive border border-warning" style="padding: 10px 10px 10px 10px;">
+            <h5 class="text-center p-1 mb-2 bg-success text-white">Face Recognition Result</h5>
+            <table id="table" class="table table-striped table-dark table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Probability (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+            
+            <div>
+                Recognized person is <strong id="allCount"></strong>
+            </div>
+        </div>
+
+        <div class="border border-warning" style="padding: 10px 10px 10px 10px;">
+            <h5 class="text-center p-1 mb-2 bg-danger text-white">Gait Recognition Result</h5>
+            <strong id="gaitResult" >Still Waiting for the result of Gait Recognition Server....</strong>
+            <div class="d-flex justify-content-center">
+                <div id="spinner3" class="spinner-border" role="status" aria-hidden="true" style="display: block;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

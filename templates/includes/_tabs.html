@@ -1,0 +1,46 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+            aria-controls="nav-home" aria-selected="true">New User Registration</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="false">Feature Extraction</a>
+        <a class="nav-item nav-link" id="nav-train-tab" data-toggle="tab" href="#nav-train" role="tab"
+            aria-controls="nav-train" aria-selected="false">Train Features</a>
+        <a class="nav-item nav-link" id="nav-surveillance-tab" data-toggle="tab" href="#nav-surveillance" role="tab"
+            aria-controls="nav-surveillance" aria-selected="false">Start Surveillance</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        {% include 'includes/_newUserRegistration.html' %}</div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        {% include 'includes/_featureExtraction.html' %}</div>
+    <div class="tab-pane fade" id="nav-train" role="tabpanel" aria-labelledby="nav-train-tab">
+        {% include 'includes/_trainFeatures.html' %}</div>
+    <div class="tab-pane fade" id="nav-surveillance" role="tabpanel" aria-labelledby="nav-surveillance-tab">
+        {% include 'includes/_surveillance.html' %}</div>
+</div>
+
+{% if number %}
+<script>
+    window.onload = function () {
+        document.getElementById('nav-home-tab').className = 'nav-item nav-link';
+        document.getElementById('nav-home').className = 'tab-pane fade';
+
+        document.getElementById('nav-profile-tab').className = 'nav-item nav-link active';
+        document.getElementById('nav-profile').className = 'tab-pane fade show active';
+    };
+</script>
+{% endif %}
+
+{% if message %}
+<script>
+    window.onload = function () {
+        document.getElementById('nav-home-tab').className = 'nav-item nav-link';
+        document.getElementById('nav-home').className = 'tab-pane fade';
+
+        document.getElementById('nav-train-tab').className = 'nav-item nav-link active';
+        document.getElementById('nav-train').className = 'tab-pane fade show active';
+    };
+</script>
+{% endif %}

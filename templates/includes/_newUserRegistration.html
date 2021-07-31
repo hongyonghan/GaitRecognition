@@ -1,0 +1,35 @@
+<div style="margin-top: 20px;">
+  <form action="http://localhost:5000/upload/" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp"
+        placeholder="Enter Employee Name" />
+      <small id="nameHelp" class="form-text text-muted">Please enter unique name</small>
+    </div>
+    <div class="form-group">
+      <label for="file">Employee face image set</label>
+      <div class="custom-file">
+        <input type="file" oninput="updateLab(this.value, 'imageLab')" name="file[]" class="custom-file-input" id="customFiles" multiple="" directory=""
+          webkitdirectory="" mozdirectory=""/>
+        <label id="imageLab" class="custom-file-label" for="customFile">Choose folder</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="file">Employee video file</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="file" name="file" oninput="updateLab(this.value, 'vidLab')">
+        <label id="vidLab" class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Data</button>
+  </form>
+</div>
+
+<script>
+  function updateLab(path, id) {
+    fileName = path.split('\\');
+    length = fileName.length;
+    file = fileName[length-1]
+    document.getElementById(id).innerHTML = file;
+  }
+</script>

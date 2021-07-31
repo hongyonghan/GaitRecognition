@@ -1,0 +1,44 @@
+<div style="margin-top: 20px;">
+    {% if number %}
+    <div class="align-self-center text-center font-weight-bolder">{{number}} encodings are serialized !!! </div>
+
+    <script>
+        window.onload = function () {
+            document.getElementById('myform').style.display = "none";
+        };
+    </script>
+    {% endif %}
+    {% if not number %}
+    <form style="display: block;" id="myform" action="http://localhost:5000/extraction/" method="post"
+        enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="customRange">Confidence Level : <span type="text" id="rangeVal"></span></label>
+            <input type="range" class="custom-range" name="range" min="0" max="1" value="0.5" step="0.1"
+                id="customRange" aria-describedby="rangeHelp" onchange="updateTextInput(this.value);">
+            <small id="rangeHelp" class="form-text text-muted">Set minimum probability to filter weak detections</small>
+        </div>
+        <button id="myform" type="submit" class="btn btn-primary">Start Feature Extraction</button>
+    </form>
+    <div class="d-flex align-content-around flex-wrap">
+        <strong id="spinner1" style="display: none;">Loading...</strong>
+        <div id="spinner2" class="spinner-border ml-auto" role="status" aria-hidden="true" style="display: none;"></div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    window.onload = function () {
+        updateTextInput(document.getElementById('customRange').value);
+        $('#spinner').addClass('d-none');
+    };
+    function updateTextInput(val) {
+        document.getElementById('rangeVal').innerHTML = val;
+    };
+    $(function () {
+        $('#myform').submit(function () {
+            document.getElementById('myform').style.display = "none";
+            document.getElementById('spinner1').style.display = 'inline-block';
+            document.getElementById('spinner2').style.display = 'inline-block';
+        });
+    })
+</script>

@@ -1,0 +1,32 @@
+<div style="margin-top: 20px;">
+    {% if message %}
+    <div class="align-self-center text-center font-weight-bolder">{{message}}</div>
+
+    <script>
+        window.onload = function () {
+            document.getElementById('myform1').style.display = 'none';
+            document.getElementById('formBtn').style.display = 'none';
+        };
+    </script>
+    {% endif %}
+
+    <form style="display: block;" id="myform1" action="http://localhost:5000/train/" method="post"
+        enctype="multipart/form-data">
+        <button id="formBtn" style="display: block;" type="submit" class="btn btn-primary">Start train classfier</button>
+    </form>
+
+    <div class="d-flex align-content-around flex-wrap">
+        <strong id="spinner1" style="display: none;">Loading...</strong>
+        <div id="spinner2" class="spinner-border ml-auto" role="status" aria-hidden="true" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#myform1').click(function () {
+            document.getElementById('myform1').style.display = "none";
+            document.getElementById('spinner1').style.display = 'inline-block';
+            document.getElementById('spinner2').style.display = 'inline-block';
+        });
+    })
+</script>
