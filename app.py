@@ -40,6 +40,9 @@ def allowed_file(filename):
 global empName
 @app.route('/upload/',methods = ['GET','POST'])
 def upload_file():
+    os.chdir("F:\pythonProject\GaitRecognition")   #设置项目的绝对路径。
+    os.getcwd()
+    sys.path.append("F:\pythonProject\GaitRecognition")
     if request.method =='POST':
         empName = request.form['name']
         fileList = request.files.getlist('file[]')
@@ -81,6 +84,9 @@ def upload_file():
 
 @app.route('/extraction/',methods = ['GET','POST'])
 def extraction():
+    os.chdir("F:\pythonProject\GaitRecognition")   #设置项目的绝对路径。
+    os.getcwd()
+    sys.path.append("F:\pythonProject\GaitRecognition")
     if request.method == 'POST':
         confidence = request.form['range']
         num_of_embeddings = embeddings_extractor.extract_face_embeddings(confidence)
@@ -99,6 +105,9 @@ def extraction():
 
 @app.route('/train/',methods = ['GET','POST'])
 def train():
+    os.chdir("F:\pythonProject\GaitRecognition")   #设置项目的绝对路径。
+    os.getcwd()
+    sys.path.append("F:\pythonProject\GaitRecognition")
     if request.method == 'POST':
         message = classfier.train_classifier()
         flash(u'The classifier was successfully trained!', 'success')
