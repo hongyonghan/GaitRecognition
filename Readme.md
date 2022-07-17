@@ -13,7 +13,7 @@
 #### 1.下载代码
 
 #### 2.安装requirements.txt
-- 当时的环境大多数都在requirement.txt和requirement.txt当中。毕业之后服务器的环境就没了。如果环境中有些版本不对，可以尝试使用requirements717.txt中的相关版本。这个是一个学弟跑出来的环境。
+- 当时的环境大多数都在requirement.txt和requirement.txt当中。毕业之后服务器的环境就没了。如果环境中有些版本不对，可以尝试使用requirements717.txt中的相关版本。这个是一个学弟在22年跑出来的环境的配置。
 
 #### 3.下载百度网盘的work文件夹到GaitRecognition文件夹下并进行解压，并将里面的openface_nn4.small2.v1.t7文件移动到GaitRecognition文件夹下。
 
