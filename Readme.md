@@ -13,6 +13,7 @@
 #### 1.下载代码
 
 #### 2.安装requirements.txt
+- 当时的环境大多数都在requirement.txt和requirement.txt当中。毕业之后服务器的环境就没了。如果环境中有些版本不对，可以尝试使用requirements717.txt中的相关版本。这个是一个学弟跑出来的环境。
 
 #### 3.下载百度网盘的work文件夹到GaitRecognition文件夹下并进行解压，并将里面的openface_nn4.small2.v1.t7文件移动到GaitRecognition文件夹下。
 
@@ -25,3 +26,13 @@ sys.path.append("F:\pythonProject\GaitRecognition")
 ```
 
 #### 5.运行app.py文件
+
+
+#### 如果部署上出现问题可以参考下面的参考链接：
+- https://blog.csdn.net/Leon_____/article/details/122862976?spm=1001.2014.3001.5506
+- https://blog.csdn.net/qq_39237205/article/details/124141716?spm=1001.2014.3001.5506
+- https://blog.csdn.net/qq_39237205/article/details/124199534?spm=1001.2014.3001.5506
+- https://blog.csdn.net/qq_39237205/article/details/124135045?spm=1001.2014.3001.5506
+- https://blog.csdn.net/weixin_46694417/article/details/118496986?spm=1001.2014.3001.5506
+- https://blog.csdn.net/qq_36731217/article/details/118491537?spm=1001.2014.3001.5506
+- https://blog.csdn.net/qq_21464351/article/details/109546421?spm=1001.2014.3001.5506
