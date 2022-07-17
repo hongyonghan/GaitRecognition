@@ -24,6 +24,7 @@ os.chdir("F:\pythonProject\GaitRecognition")   #设置项目的绝对路径。
 os.getcwd()
 sys.path.append("F:\pythonProject\GaitRecognition")
 ```
+我当时只是设置了app文件中surveillance函数设置了运行路径就可以运行了。后来学弟在部署的时候他的电脑环境下需要设置app文件下upload_file()、extraction()、train()、surveillance()，为了系统更加稳定，推荐在部署的时候也添加上这些函数的运行路径。
 
 #### 5.运行app.py文件
 
@@ -36,3 +37,4 @@ sys.path.append("F:\pythonProject\GaitRecognition")
 - https://blog.csdn.net/weixin_46694417/article/details/118496986?spm=1001.2014.3001.5506
 - https://blog.csdn.net/qq_36731217/article/details/118491537?spm=1001.2014.3001.5506
 - https://blog.csdn.net/qq_21464351/article/details/109546421?spm=1001.2014.3001.5506
+#### 大家部署成功后欢迎大家把自己的部署出现的问题及解决方案提交commit或者发布issue。
